@@ -35,6 +35,8 @@ def slide(board, state, direction):
             # validasi urutan
             if int(tile) == current_last_num + 1:
                 current_last_num = int(tile)
+            elif int(tile) <= current_last_num: #angka udah pernah dilewatin jadinya aman
+                pass
             else:
                 return None
             
@@ -49,12 +51,13 @@ def slide(board, state, direction):
 def get_neighbors(board, state):
     neighbors = []
 
-    for d in DIRECTIONS:
-        next_state = slide(board, state, d)
-
-        if next_state == state:
+    for d, (dx, dy) in DIRECTIONS.items():
+        result = slide(board, state, d)
+        if result is None: #kalau masuk lava/keluar map/checkpoint salah
             continue
-
-        neighbors.append(next_state)
+        nextS, moveCost = result
+        if nextS.x == state.x and nextS.y == state.y: #cek apakah benar-benar bergerak dan bukan stuck in place
+            continue
+        neighbors.append((d, nextS, moveCost))
 
     return neighbors

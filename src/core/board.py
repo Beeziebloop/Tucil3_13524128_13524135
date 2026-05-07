@@ -7,6 +7,15 @@ class Board:
         self.max_num = max_num
         self.rows = len(grid)
         self.cols = len(grid[0])
+        self.checkpointPos = {}
+        self.goalPos = None
+        for i in range(self.rows):
+            for j in range(self.cols):
+                tile = grid[i][j]
+                if tile.isdigit():
+                    self.checkpointPos[int(tile)] = (i, j)
+                elif tile == 'O':
+                    self.goalPos = (i, j)
 
     def is_inside(self, x, y):
         return 0 <= x < self.rows and 0 <= y < self.cols
