@@ -1,5 +1,5 @@
 class State:
-    def __init__(self, x, y, last_num = -1, cost = 0, path = []):
+    def __init__(self, x, y, last_num = -1):
         self.x = x
         self.y = y
         self.last_num = last_num
