@@ -19,6 +19,7 @@ class Node:
     def __repr__(self):
         return f"({self.state}, {self.cost}, {self.heuristic}, {self.move})"
     
+    @staticmethod
     def reconstruct_path(node): #reconstruct dari goal node dengan ngikutin parent pointers
         path = []
         cur = node
@@ -27,3 +28,12 @@ class Node:
             cur = cur.parent
         path.reverse() #direverse karena dibangunnya backwards tadi
         return "".join(path)
+    
+    @staticmethod
+    def reconstruct_states(node):
+        states = []
+        while node is not None:
+            states.append(node.state)
+            node = node.parent
+        states.reverse()
+        return states
