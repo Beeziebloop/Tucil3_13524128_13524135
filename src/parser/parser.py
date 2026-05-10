@@ -62,6 +62,9 @@ def parse_file(filepath):
             if len(cost_row) != m:
                 raise ValueError(f"Baris cost ke-{i+1} punya {len(cost_row)} kolom, harusnya {m}")
             
+            for cost in cost_row:
+                if cost < 0:
+                    raise ValueError(f"Cost tidak boleh negatif pada baris {i+1}: {cost}")
             costs.append(cost_row)
 
     if start is None or goal is None:

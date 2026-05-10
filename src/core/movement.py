@@ -45,7 +45,9 @@ def slide(board, state, direction):
 
         # lanjut geser
         x, y = nx, ny
-
+    #kalau ga ada pergerakan sama sekali, return None
+    if x == state.x and y == state.y:
+        return None
     return State(x, y, current_last_num), total_movement_cost
 
 def get_neighbors(board, state):
@@ -58,6 +60,7 @@ def get_neighbors(board, state):
         nextS, moveCost = result
         if nextS.x == state.x and nextS.y == state.y: #cek apakah benar-benar bergerak dan bukan stuck in place
             continue
-        neighbors.append((d, nextS, moveCost))
+        dChar = d[0] #ambil char movement
+        neighbors.append((dChar, nextS, moveCost))
 
     return neighbors
