@@ -16,6 +16,7 @@ from src.gui.views.playback_view import PlaybackView
 
 from src.gui.services.playback_service import PlaybackService
 from src.gui.services.solver_service import SolverService
+from src.gui.services.export_service import ExportService
 
 from src.gui.utils.board_steps import generate_solution_steps
 
@@ -108,6 +109,16 @@ class App:
             if result['found']:
                 steps = generate_solution_steps(self.board, result['solution'])
                 self.playback.load_steps(steps)
+
+                output_path = ExportService.export_solution(
+                    board=self.board,
+                    result=result,
+                    steps=steps,
+                    algorithm=self.algorithm,
+                    heuristic=self.heuristic
+                )
+
+                print(f'Solution exported:\n{output_path}')
 
             else:
                 self.playback.load_steps([])
