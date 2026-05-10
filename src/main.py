@@ -4,6 +4,7 @@ import time
 from src.parser.parser import parse_file
 from src.algo_and_heu.UCS import ucs
 from src.algo_and_heu.GBFS import gbfs
+from src.algo_and_heu.AStar import aStar
 from src.algo_and_heu.heuristics import getHeuristic
 from src.core.movement import DIRECTIONS
 
@@ -236,8 +237,7 @@ def main():
     elif algo == 'GBFS':
         result = gbfs(board, heuristic)
     elif algo == 'A*':
-        print("Belum diimplement!")
-        return
+        result = aStar(board, heuristic)
     endTime = time.time()
     execTime = (endTime - startTime) * 1000  #convert ke ms
     #display hasil
@@ -296,9 +296,13 @@ def main():
         os.makedirs(output_dir, exist_ok=True)
         #generate filename
         timestamp = time.strftime("%Y%m%d_%H%M%S")
-        outputfilename = f"{output_dir}/solution_{algo}_{timestamp}.txt"
+        if algo == 'A*':
+            safe_algo = 'AStar'
+        else:
+            safe_algo = algo
+        outputfilename = f"{output_dir}/solution_{safe_algo}_{timestamp}.txt"
         if heuChoice:
-            outputfilename = f"{output_dir}/solution_{algo}_{heuChoice}_{timestamp}.txt"
+            outputfilename = f"{output_dir}/solution_{safe_algo}_{heuChoice}_{timestamp}.txt"
         saveSolution(board, result, steps, outputfilename)
         #ambil path absolut
         absPath = os.path.abspath(outputfilename)
