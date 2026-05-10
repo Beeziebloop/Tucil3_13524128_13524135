@@ -1,6 +1,6 @@
 from heapq import heappush, heappop
 from src.core.state import State
-from src.core.node import Node, reconstruct_path
+from src.core.node import Node
 from src.core.movement import get_neighbors
 
 def ucs(board):
@@ -24,7 +24,7 @@ def ucs(board):
         visited.add(currentNode.state)
         #check goal, apakah udah sampe 'O' dan melewati semua checkpoint jika ada
         if board.is_goal(currentNode.state):
-            return{'solution': reconstruct_path(currentNode), 'cost': currentNode.cost, 'iterations': iterations, 'found': True}
+            return{'solution': Node.reconstruct_path(currentNode), 'cost': currentNode.cost, 'iterations': iterations, 'found': True}
         #expand neighbors, coba keempat arah
         neighbors = get_neighbors(board, currentNode.state)
         for dirChar, nextState, moveCost in neighbors:

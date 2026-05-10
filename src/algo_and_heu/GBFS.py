@@ -1,6 +1,6 @@
 from heapq import heappush, heappop
 from src.core.state import State
-from src.core.node import Node, reconstruct_path
+from src.core.node import Node
 from src.core.movement import get_neighbors
 
 def gbfs(board, heuristics):
@@ -25,7 +25,7 @@ def gbfs(board, heuristics):
         visited.add(curNode.state)
         #goal test 
         if board.is_goal(curNode.state):
-            return {'solution': reconstruct_path(curNode), 'cost': curNode.cost, 'iterations': iters, 'found': True}
+            return {'solution': Node.reconstruct_path(curNode), 'cost': curNode.cost, 'iterations': iters, 'found': True}
         #expand neighbors
         neighbors = get_neighbors(board, curNode.state)
         for dirChar, nextState, moveCost in neighbors:
